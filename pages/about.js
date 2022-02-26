@@ -3,8 +3,8 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Link from '../src/Link';
-import Copyright from '../src/Copyright';
+import Link from '../src/Componentes/Core/Link';
+import Copyright from '../src/Componentes/Core/Copyright';
 
 export default function About() {
   return (
