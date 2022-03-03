@@ -17,6 +17,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { GetServerSideProps } from 'next'
+import { getAPIClient } from '../src/services/axiosClient';
+import { parseCookies } from 'nookies';
 
 const drawerWidth = 240;
 
@@ -159,4 +162,24 @@ export default function MiniDrawer() {
       </Box>
     </Box>
   );
+}
+
+export async function getServerSideProps(ctx) {
+    const apiClient = getAPIClient(ctx);
+    const { ['nextauth.token']: token } = parseCookies(ctx)
+  
+    if (!token) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
+      }
+    }
+  
+    // await apiClient.get('v1/usuarios')
+  
+    return {
+      props: {}
+    }
 }

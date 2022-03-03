@@ -2,24 +2,26 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Avatar } from '@material-ui/core';
-import Link from '../src/Componentes/Core/Link';
-import Copyright from '../src/Componentes/Core/Copyright';
+import Link from '../src/components/core/Link';
+import Copyright from '../src/components/core/Copyright';
 import { TextField } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
 import { Checkbox,Button,Grid,Card,CardContent } from '@material-ui/core';
 import {LockOutlined} from '@mui/icons-material';
+import { useContext } from 'react';
+import { AuthContext } from '../src/contexts/AuthContext';
 
 
 
 export default function Login(){
+  
+  const { signIn } = useContext(AuthContext)
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+        
+        signIn({email: data.get('email'), password: data.get('password')})
       };
     return(
         <Box my={4}>
@@ -67,7 +69,7 @@ export default function Login(){
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-              <Link href="/membros" color="secondary">
+              {/* <Link href="/membros" color="secondary"> */}
 
             <Button
               type="submit"
@@ -78,7 +80,7 @@ export default function Login(){
             >
                 Entrar
             </Button>
-            </Link>
+            {/* </Link> */}
 
             {/* <Grid container>
               <Grid item xs>

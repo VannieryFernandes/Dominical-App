@@ -8,8 +8,10 @@
     "@material-ui/core": "latest",
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.4.2",
+    "axios": "^0.26.0",
     "clsx": "latest",
     "next": "latest",
+    "nookies": "^2.5.2",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest"
