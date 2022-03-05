@@ -10,19 +10,43 @@ import { Checkbox,Button,Grid,Card,CardContent } from '@material-ui/core';
 import {LockOutlined} from '@mui/icons-material';
 import { useContext } from 'react';
 import { AuthContext } from '../src/contexts/AuthContext';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
-
+const validationSchema = yup.object({
+  email: yup
+    .string('Insira seu email')
+    .email('Insira um email valido')
+    .required('Email é obrigátorio'),
+  password: yup
+    .string('Insira sua senha')
+    .min(5, 'Senha deve conter no mínimo 5 caracteres')
+    .required('Password é obrigátório'),
+});
 
 export default function Login(){
   
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      signIn({email: values.email, password: values.password})
+    },
+  });
+
   const { signIn } = useContext(AuthContext)
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const data = new FormData(event.currentTarget);
         
-        signIn({email: data.get('email'), password: data.get('password')})
-      };
+    //     signIn({email: data.get('email'), password: data.get('password')})
+    //   };
     return(
         <Box my={4}>
         <Typography variant="h4" component="h1" gutterBottom>
@@ -44,7 +68,7 @@ export default function Login(){
           <Typography component="h1" variant="h5">
             Login
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -54,6 +78,11 @@ export default function Login(){
               name="email"
               autoComplete="email"
               autoFocus
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+
             />
             <TextField
               margin="normal"
@@ -64,11 +93,15 @@ export default function Login(){
               type="password"
               id="password"
               autoComplete="current-password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
               {/* <Link href="/membros" color="secondary"> */}
 
             <Button

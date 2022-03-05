@@ -10,11 +10,13 @@
     "@mui/material": "^5.4.2",
     "axios": "^0.26.0",
     "clsx": "latest",
+    "formik": "^2.2.9",
     "next": "latest",
     "nookies": "^2.5.2",
     "prop-types": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "dev": "next",

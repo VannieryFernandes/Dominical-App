@@ -15,6 +15,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import CardContainer from '../src/components/CardContainer';
+import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -88,7 +89,7 @@ const rows = [
 
 
 
-export default function Membros() {
+export default function Users() {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -104,7 +105,7 @@ export default function Membros() {
 
   return (
     <Layout>
-      <CardContainer title="Membros" icon={<PeopleAltIcon/>}>
+      <CardContainer title="Usuários" icon={<PeopleOutlinedIcon/>}>
 
 
       
