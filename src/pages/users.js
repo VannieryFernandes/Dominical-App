@@ -2,9 +2,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import { getAPIClient } from '../src/services/axiosClient';
+import { getAPIClient } from '../services/axiosClient';
 import { parseCookies } from 'nookies';
-import Layout from '../src/layout/layoutDefault';
+import Layout from '../layout/layoutDefault';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -14,7 +14,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import CardContainer from '../src/components/CardContainer';
+import CardContainer from '../components/CardContainer';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 
 const columns = [

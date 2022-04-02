@@ -21,10 +21,16 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import { parseCookies } from 'nookies';
-
+import { makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import UserMenu from './userMenu';
 
+const useStyles = makeStyles({
+  paper: {
+    backgroundImage: `url(${"/images/sidemenu.jpg"})`,
+    backgroundSize:"cover",
+  }
+});
 
 const drawerWidth = 240;
 
@@ -94,6 +100,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Layout(props) {
+  const styles = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
@@ -119,7 +126,7 @@ export default function Layout(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="absolute" open={open} style={{backgroundColor:"#2196f3"}}>
+      <AppBar position="absolute" open={open} style={{background: "linear-gradient(80deg, #d0aa5d, #2196f3)"}}>
         <Toolbar  sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <IconButton
             color="inherit"
@@ -152,21 +159,21 @@ export default function Layout(props) {
           
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} classes={{ paper: styles.paper }}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List >
           {listSidebar.map((obj) => (
         <Link href={obj.link}>
             <ListItem button key={obj.name}>
               <ListItemIcon>
                 {obj.icon}
               </ListItemIcon>
-              <ListItemText primary={obj.name} />
+              <ListItemText style={{color:'white'}} primary={obj.name} />
             </ListItem>
         </Link>
           ))}
@@ -178,7 +185,7 @@ export default function Layout(props) {
               <ListItemIcon>
                 {obj.icon}
               </ListItemIcon>
-              <ListItemText primary={obj.name} />
+              <ListItemText style={{color:'white'}} primary={obj.name} />
             </ListItem>
           ))}
         </List>
@@ -208,4 +215,12 @@ export async function getServerSideProps(ctx) {
       props: {}
     }
 
+}
+const styles = {
+  sideMenuBack:{
+    height: "100vh",
+    // with:'30px',
+    backgroundSize:"cover",
+    backgroundImage: `url(${"/images/login.jpg"})`
+  }
 }

@@ -5,9 +5,11 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@hookstate/core": "^3.0.13",
     "@material-ui/core": "latest",
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.4.2",
+    "@mui/x-data-grid": "^5.7.0",
     "axios": "^0.26.0",
     "clsx": "latest",
     "formik": "^2.2.9",

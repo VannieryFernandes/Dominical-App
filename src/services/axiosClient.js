@@ -10,13 +10,13 @@ export function getAPIClient(ctx) {
 
   api.interceptors.request.use(config => {
     console.log(config);
-
+    config.baseURL = 'https://dominical-api.herokuapp.com/v1/'
     return config;
   })
-
+  
   if (token) {
     api.defaults.headers['Authorization'] = `Bearer ${token}`;
   }
-
+  
   return api;
 }

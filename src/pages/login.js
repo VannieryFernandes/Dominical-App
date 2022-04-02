@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Avatar } from '@material-ui/core';
-import Link from '../src/components/core/Link';
-import Copyright from '../src/components/core/Copyright';
+import { Avatar, Container } from '@material-ui/core';
+import Link from '../components/core/Link';
+import Copyright from '../components/core/Copyright';
 import { TextField } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
 import { Checkbox,Button,Grid,Card,CardContent } from '@material-ui/core';
 import {LockOutlined} from '@mui/icons-material';
 import { useContext } from 'react';
-import { AuthContext } from '../src/contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import Router from 'next/router'
+import { style } from '@mui/system';
+
 
 const validationSchema = yup.object({
   email: yup
@@ -26,6 +29,10 @@ const validationSchema = yup.object({
 
 export default function Login(){
   
+  const [state,setState] = useState({
+    loading:false,
+    payload : null
+  })
 
   const formik = useFormik({
     initialValues: {
@@ -35,9 +42,22 @@ export default function Login(){
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
-      signIn({email: values.email, password: values.password})
-    },
-  });
+      setState({loading:true})
+      signIn({email: values.email, password: values.password}).then(result=>{
+        if(result.access_token){
+          setState({loading:false,payload:result})
+          console.log(state.loading)
+          Router.push('/dashboard');
+
+      }else{
+        setState({loading:false,payload:result})
+      }
+    })
+
+  }
+})
+
+  
 
   const { signIn } = useContext(AuthContext)
 
@@ -48,7 +68,8 @@ export default function Login(){
     //     signIn({email: data.get('email'), password: data.get('password')})
     //   };
     return(
-        <Box my={4}>
+      // <Container>
+        <Box my={4} style={{paddingTop: 50,}}>
         <Typography variant="h4" component="h1" gutterBottom>
           
         </Typography>
@@ -66,7 +87,7 @@ export default function Login(){
             <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Entrar
           </Typography>
           <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -74,7 +95,7 @@ export default function Login(){
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Endereço de email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -89,7 +110,7 @@ export default function Login(){
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Senha"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -131,10 +152,13 @@ export default function Login(){
         </Box>
         </CardContent>
         </Card>
+        
 
         
 
         <Copyright />
       </Box>
+
+      // </Container>
     )
 }

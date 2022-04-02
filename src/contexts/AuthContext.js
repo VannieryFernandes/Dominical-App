@@ -54,9 +54,12 @@ export function AuthProvider({ children }) {
 
       setUser({email:email})
 
-      Router.push('/membros');
+      return {"access_token":access_token}
     }
+    if(detail){
+      return {"detail":detail}
   }
+}
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
