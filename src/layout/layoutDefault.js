@@ -29,7 +29,15 @@ const useStyles = makeStyles({
   paper: {
     backgroundImage: `url(${"/images/sidemenu.jpg"})`,
     backgroundSize:"cover",
-  }
+  },
+  tr: {
+    background: "5a9cc1",
+    '&:hover': {
+       background: "#5a9cc1",
+       transition: "0.3s"
+    },
+  },
+
 });
 
 const drawerWidth = 240;
@@ -113,10 +121,10 @@ export default function Layout(props) {
   };
 
   const listSidebar = [
-      {name:'Dashboard',icon: <AutoGraphIcon />,link:'/dashboard'},
-      {name:'Membros',icon:<PeopleOutlineOutlinedIcon />,link:'/membros'},
-      {name:'EBD',icon:<MenuBookIcon />,link:'/ebd'},
-      {name:'Usuários',icon:<PeopleOutlineIcon />,link:'/users'}];
+      {name:'Dashboard',icon: <AutoGraphIcon />,link:'/dashboards/dashboard-ebd'},
+      {name:'Membros',icon:<PeopleOutlineOutlinedIcon />,link:'/membros/membros-list'},
+      {name:'EBD',icon:<MenuBookIcon />,link:'/ebd/ebd-list'},
+      {name:'Usuários',icon:<PeopleOutlineIcon />,link:'/users/users-list'}];
 
   const reportSide = [
     {name:'Relatório Membros',icon: <SupervisedUserCircleIcon />,link:'/membros'},
@@ -169,23 +177,23 @@ export default function Layout(props) {
         <List >
           {listSidebar.map((obj) => (
         <Link href={obj.link}>
-            <ListItem button key={obj.name}>
+            <ListItem className={styles.tr} button key={obj.name}>
               <ListItemIcon>
                 {obj.icon}
               </ListItemIcon>
-              <ListItemText style={{color:'white'}} primary={obj.name} />
+              <ListItemText primary={obj.name} />
             </ListItem>
         </Link>
           ))}
         </List>
         <Divider />
-        <List>
+        <List >
           {reportSide.map((obj) => (
-            <ListItem button key={obj.name}>
+            <ListItem className={styles.tr} button key={obj.name}>
               <ListItemIcon>
                 {obj.icon}
               </ListItemIcon>
-              <ListItemText style={{color:'white'}} primary={obj.name} />
+              <ListItemText primary={obj.name} />
             </ListItem>
           ))}
         </List>

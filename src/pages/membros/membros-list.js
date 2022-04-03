@@ -1,11 +1,13 @@
 import { useEffect,useState } from 'react';
-import { getAPIClient } from '../services/axiosClient';
+import { getAPIClient } from '../../services/axiosClient';
 import { parseCookies } from 'nookies';
-import Layout from '../layout/layoutDefault';
+import Layout from '../../layout/layoutDefault';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Paper from '@mui/material/Paper';
-import CardContainer from '../components/CardContainer';
+import CardContainer, { CardObjectContainer } from '../../components/CardContainer';
+
 import { DataGrid } from '@mui/x-data-grid';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const columns = [
   {
@@ -47,20 +49,16 @@ export default function Membros({membros}) {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [listMembros,setListMembros] = useState([])
-  
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
   useEffect(() => setListMembros([...membros.membros]), [membros]);
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
 
   return (
     <Layout>
-      <CardContainer title="Membros" icon={<PeopleAltIcon/>} action="add-membros">
+      <CardContainer title="Membros" icon={<PeopleAltIcon/>} icon_button_action={<AddOutlinedIcon/>} route_component="/membros/membros-add">
 
       <Paper sx={{ width: '100%' }}>
         

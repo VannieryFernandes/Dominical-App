@@ -27,7 +27,7 @@ export default function UserMenu(){
 
     const logoutSystem=()=>{
         destroyCookie(null,'nextauth.token')
-        Router.push('')
+        Router.push('/')
     }
 
     return (

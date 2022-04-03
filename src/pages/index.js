@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import Login from '../pages/login';
+import Login from '../pages/auth/login';
 
 export default function Index() {
 

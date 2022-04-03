@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Avatar, Container } from '@material-ui/core';
-import Link from '../components/core/Link';
-import Copyright from '../components/core/Copyright';
+import Link from '../../components/core/Link';
+import Copyright from '../../components/core/Copyright';
 import { TextField } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
 import { Checkbox,Button,Grid,Card,CardContent } from '@material-ui/core';
 import {LockOutlined} from '@mui/icons-material';
 import { useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Router from 'next/router'
@@ -47,7 +47,7 @@ export default function Login(){
         if(result.access_token){
           setState({loading:false,payload:result})
           console.log(state.loading)
-          Router.push('/dashboard');
+          Router.push('dashboards/dashboard-ebd');
 
       }else{
         setState({loading:false,payload:result})

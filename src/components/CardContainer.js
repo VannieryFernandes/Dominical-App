@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import { blue} from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Link from "next/link";
 export default function CardContainer(props){
   
   
@@ -18,17 +18,20 @@ export default function CardContainer(props){
        <Card>
         <CardHeader
         avatar={
-            <Avatar sx={{ bgcolor: blue[500] }}>
+            <Avatar sx={{ background: "linear-gradient(80deg, #d0aa5d, #2196f3)" }}>
             {props.icon}
            </Avatar>
          
         }
      
         title={<h2>{props.title}</h2>}
+        
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          <Link href={"/membros/membros-add"}>
+          <IconButton sx={{margin:2.1, bgcolor: blue[500]}} aria-label="add">
+           {props.icon_button_action}
           </IconButton>
+          </Link>
         }
         // subheader="September 14, 2016"
       />

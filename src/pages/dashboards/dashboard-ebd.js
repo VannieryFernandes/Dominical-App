@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { getAPIClient } from '../services/axiosClient';
+import { getAPIClient } from '../../services/axiosClient';
 import { parseCookies } from 'nookies';
-import Layout from '../layout/layoutDefault';
+import Layout from '../../layout/layoutDefault';
 import Avatar from '@mui/material/Avatar';
 import { blue} from '@mui/material/colors';
 // import { Card,CardHeader,CardContent } from '@material-ui/core';
-import CardContainer from '../components/CardContainer';
+import CardContainer from '../../components/CardContainer';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 export default function Dashboard() {
 
