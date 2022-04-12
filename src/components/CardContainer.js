@@ -26,16 +26,19 @@ export default function CardContainer(props){
      
         title={<h2>{props.title}</h2>}
         
-        action={
-          <Link href={"/membros/membros-add"}>
-          <IconButton sx={{margin:2.1, bgcolor: blue[500]}} aria-label="add">
-           {props.icon_button_action}
-          </IconButton>
-          </Link>
-        }
-        // subheader="September 14, 2016"
-      />
-       
+        action={props.route_component ? (
+          <>
+          
+            <Link href={props.route_component}>
+            <IconButton sx={{margin:2.1, bgcolor: blue[500]}} aria-label="add">
+             {props.icon_button_action}
+            </IconButton>
+            </Link>
+          </>
+          // subheader="September 14, 2016"
+        
+        ):""}
+        />
             <CardContent>
                 {props.children}
            </CardContent>

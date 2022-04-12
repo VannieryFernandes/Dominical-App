@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect,useState } from 'react';
 import Box from '@mui/material/Box';
 import { getAPIClient } from '../../services/axiosClient';
 import { parseCookies } from 'nookies';
@@ -8,36 +8,46 @@ import { blue} from '@mui/material/colors';
 // import { Card,CardHeader,CardContent } from '@material-ui/core';
 import CardContainer from '../../components/CardContainer';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-const steps = [
-  {
-    label: 'Vanniery Fernandes',
-    img: `https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60`,
-  },
-  {
-    label: 'Henrique',
-    img:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Paula',
-    img: `https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80`,
-  },
-];
+//Acordao de filtro
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+// import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+// const steps = [
+//   {
+//     label: 'Vanniery Fernandes',
+//     img: `https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60`,
+//   },
+//   {
+//     label: 'Henrique',
+//     img:
+//       'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+//   },
+//   {
+//     label: 'Paula',
+//     img: `https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80`,
+//   },
+// ];
 
 
 
-export default function EBD() {
+export default function EBD({membros}) {
 
-    const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = steps.length;
-  
+    const [activeStep, setActiveStep] = useState(0);
+    const [listMembros,setListMembros] = useState([])
+
+    useEffect(() => setListMembros([...membros.membros]), [membros]);
+    const maxSteps = listMembros.length;
+    console.log(listMembros)
     const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -51,7 +61,24 @@ export default function EBD() {
         <Layout>
           <CardContainer icon={<MenuBookIcon/>} title="Frequência EBD">
          
-    
+          <Accordion>
+        <AccordionSummary
+          expandIcon={<FilterAltIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+        {/* <Typography
+          align="right">
+            <FilterAltIcon />
+        </Typography> */}
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Aqui fica os inputs do filtro
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      
       
       <Box sx={{ maxWidth: 1000, flexGrow: 1 }}>
         <Paper
@@ -65,12 +92,14 @@ export default function EBD() {
             bgcolor: 'background.default',
           }}
         >
-          <Typography sx={{ fontWeight: 'bold', m: 1 }}> {steps[activeStep].label}</Typography>
+          <Typography sx={{ fontWeight: 'bold', m: 1 }}> {listMembros[activeStep].nome_completo}</Typography>
         </Paper>
         <Box justifyContent='center' sx={{ height: 280, maxWidth: 1000, width: '100%', p: 2,display:'center' }}>
             <Avatar
-            alt={steps[activeStep].label}
-            src={steps[activeStep].img}
+            alt={listMembros[activeStep].nome_completo}
+            // src={steps[activeStep].img}
+            src={`https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60`}
+
             sx={{ width: 200, height: 200,display:'center' }}
           />
           
@@ -125,24 +154,23 @@ export default function EBD() {
 
 }
 
-
-
 export async function getServerSideProps(ctx) {
-    const apiClient = getAPIClient(ctx);
-    const { ['nextauth.token']: token } = parseCookies(ctx)
-  
-    if (!token) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        }
+  const apiClient = getAPIClient(ctx);
+  const { ['nextauth.token']: token } = parseCookies(ctx)
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
       }
     }
+  } 
   
-    // await apiClient.get('v1/usuarios')
-  
-    return {
-      props: {}
-    }
+  const res = await apiClient.get('membros')
+  const membros =await res.data
+  // console.log(membros)
+  return {
+    props: {membros:membros}
+  }
 }
